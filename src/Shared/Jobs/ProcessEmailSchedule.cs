@@ -1,4 +1,4 @@
-using EmailScheduler.src.Shared.Notifications;
+using EmailScheduler.src.Shared.Notifications.Triggers;
 using MediatR;
 using Quartz;
 

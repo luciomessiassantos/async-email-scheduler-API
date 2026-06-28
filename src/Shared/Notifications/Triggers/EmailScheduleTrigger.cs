@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace EmailScheduler.src.Shared.Notifications;
+namespace EmailScheduler.src.Shared.Notifications.Triggers;
 
 public record EmailScheduleTrigger(
     Guid ScheduleId

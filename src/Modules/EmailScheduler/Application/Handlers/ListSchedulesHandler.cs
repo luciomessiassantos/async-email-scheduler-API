@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmailScheduler.src.Modules.EmailScheduler.Application.Handlers;
 
-public class GetAllSchedulesHandler(
+public class ListSchedulesHandler(
     EmailSchedulerDbContext context
-) : IRequestHandler<GetAllSchedulesQuery, IEnumerable<EmailSchedulerEntity>>
+) : IRequestHandler<ListSchedulesQuery, IEnumerable<EmailSchedulerEntity>>
 {
-    public async Task<IEnumerable<EmailSchedulerEntity>> Handle(GetAllSchedulesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<EmailSchedulerEntity>> Handle(ListSchedulesQuery request, CancellationToken cancellationToken)
     {
         return await context.EmailSchedulers
                 .AsNoTracking()

@@ -3,6 +3,7 @@ using System;
 using EmailScheduler.src.Modules.EmailScheduler.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmailScheduler.Migrations
 {
     [DbContext(typeof(EmailSchedulerDbContext))]
-    partial class EmailSchedulerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260628120722_EmailSchedulerMigration003")]
+    partial class EmailSchedulerMigration003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -9,10 +9,13 @@ namespace EmailScheduler.src.Shared.Services.Implementations;
 public class EmailService(IOptions<SmtpSettings> settings) : IEmailService
 {
 
-    private readonly SmtpSettings smtpSettings = settings.Value;
+    private readonly SmtpSettings globalSmtpSettings = settings.Value;
 
-    public async Task SendEmailAsync(string to, string subject, string body)
+    public async Task SendEmailAsync(string to, string subject, string body, SmtpSettings smtpSettings)
     {
+
+        smtpSettings ??= globalSmtpSettings;
+
         var message = new MimeMessage();
         message.From.Add(new MailboxAddress(smtpSettings.SenderName, smtpSettings.SenderEmail));
         message.To.Add(MailboxAddress.Parse(to));
@@ -22,6 +25,7 @@ public class EmailService(IOptions<SmtpSettings> settings) : IEmailService
         {
             Text = body
         };
+
 
 
         using var client = new SmtpClient();

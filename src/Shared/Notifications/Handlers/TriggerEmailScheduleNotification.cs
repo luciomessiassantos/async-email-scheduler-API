@@ -1,6 +1,8 @@
 using EmailScheduler.src.Modules.EmailScheduler.Domain;
 using EmailScheduler.src.Modules.EmailScheduler.Infrastructure;
+using EmailScheduler.src.Shared.Notifications.Triggers;
 using EmailScheduler.src.Shared.Services.Interfaces;
+using EmailScheduler.src.Shared.Services.Settings;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,7 @@ public class TriggerEmailScheduleNotification(
     {
         // Aqui será feito a procura do agendamento pelo Id
         var schedule = await context.EmailSchedulers
+        .Include(e => e.SmtpClientSettings)
         .AsTracking()
         .FirstOrDefaultAsync(e => e.Id == notification.ScheduleId, cancellationToken)
             ?? throw new Exception("Agendamento não encontrado");
@@ -26,7 +29,15 @@ public class TriggerEmailScheduleNotification(
             await emailService.SendEmailAsync(
                 schedule.Email,
                 schedule.Subject,
-                schedule.Body
+                schedule.Body,
+                new SmtpSettings // uso de client registrado
+                {
+                    Username = schedule.SmtpClientSettings.Username,
+                    Server = schedule.SmtpClientSettings.Server,
+                    SenderName = schedule.SmtpClientSettings.SenderName,
+                    SenderEmail = schedule.SmtpClientSettings.SenderEmail,
+                    Password = schedule.SmtpClientSettings.Password ?? ""
+                }
             );
 
             schedule.Trigger();

@@ -18,6 +18,10 @@ public class EmailSchedulerEntity
 
     public DateTimeOffset CreatedAt { get; }
 
+    public Guid SmtpClientSettingsId { get; set; }
+
+    public SmtpClientSettings SmtpClientSettings { get; set; } = null!;
+
     public EmailSchedulerEntity()
     {
         CreatedAt = DateTimeOffset.UtcNow;

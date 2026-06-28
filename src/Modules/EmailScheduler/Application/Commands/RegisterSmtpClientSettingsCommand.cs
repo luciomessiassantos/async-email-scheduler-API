@@ -4,11 +4,11 @@ using MediatR;
 
 namespace EmailScheduler.src.Modules.EmailScheduler.Application.Commands;
 
-public record CreateEmailScheduler(
-    Guid SmtpClientId,
-    string Email,
-    string Subject,
-    string Body,
-    DateOnly TriggerDate,
-    TimeOnly TriggerTime
-) : IRequest<EmailSchedulerDto>;
+public record RegisterSmtpClientSettingsCommand(
+    string Server,
+    int Port,
+    string SenderName,
+    string SenderEmail,
+    string Username,
+    string? Password
+) : IRequest<SmtpClientSettingsDto>;
